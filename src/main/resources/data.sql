@@ -1,1 +1,1 @@
-INSERT INTO Usuario(login, senha, role) values('teste@feminine.com', '$2a$12$2GPpvsbvbIHcbbXA9NPxNeTgByxwecY1tEfvAMFw9jcl5wQycc3Mu', 'ADMIN')
+INSERT INTO USUARIO(login, senha, role) VALUES ('teste@feminine.com', '$2a$12$2GPpvsbvbIHcbbXA9NPxNeTgByxwecY1tEfvAMFw9jcl5wQycc3Mu', 'admin')
