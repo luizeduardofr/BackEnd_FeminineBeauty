@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.Date;
 
 @Service
 public class TokenService {
@@ -21,20 +20,21 @@ public class TokenService {
 
     public String gerarToken(Usuario usuario){
         try {
-            var algoritmo = Algorithm.HMAC256(secret);
-            return JWT.create()
+            Algorithm algoritmo = Algorithm.HMAC256(secret);
+            String token = JWT.create()
                     .withIssuer("API Feminine Beauty")
                     .withSubject(usuario.getLogin())
                     .withExpiresAt(dataExpiracao())
                     .sign(algoritmo);
+            return token;
         } catch (JWTCreationException exception) {
             throw new RuntimeException("Erro ao gerar token jwt", exception);
         }
     }
 
-    public String getSubject(String tokenJWT) {
+    public String validarToken(String tokenJWT) {
         try{
-            var algoritmo = Algorithm.HMAC256(secret);
+            Algorithm algoritmo = Algorithm.HMAC256(secret);
             return JWT.require(algoritmo)
                     .withIssuer("API Feminine Beauty")
                     .build()
