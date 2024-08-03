@@ -15,7 +15,7 @@ public class Funcionario {
     @Embedded
     private Endereco endereco;
 
-    private boolean ativo;
+    private Boolean ativo;
 
     public Funcionario (DadosCadastroFuncionario dados) {
 
