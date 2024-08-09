@@ -19,6 +19,12 @@ public class Servico {
     private String preco;
     private Boolean ativo;
 
+    private Servico (DadosCadastroServico dados) {
+        this.ativo = true;
+        this.descricao = dados.descricao();
+        this.preco = dados.preco();
+    }
+
     public void excluir() {
         this.ativo = false;
     }
