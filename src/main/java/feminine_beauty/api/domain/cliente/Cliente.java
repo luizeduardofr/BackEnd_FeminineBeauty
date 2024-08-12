@@ -1,6 +1,8 @@
 package feminine_beauty.api.domain.cliente;
 
 import feminine_beauty.api.domain.endereco.Endereco;
+import feminine_beauty.api.dtos.cliente.DadosAtualizacaoCliente;
+import feminine_beauty.api.dtos.cliente.DadosCadastroCliente;
 import jakarta.persistence.*;
 import lombok.*;
 

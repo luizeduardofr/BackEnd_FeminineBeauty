@@ -1,6 +1,10 @@
 package feminine_beauty.api.controller;
 
 import feminine_beauty.api.domain.cliente.*;
+import feminine_beauty.api.dtos.cliente.DadosAtualizacaoCliente;
+import feminine_beauty.api.dtos.cliente.DadosCadastroCliente;
+import feminine_beauty.api.dtos.cliente.DadosDetalhamentoCliente;
+import feminine_beauty.api.dtos.cliente.DadosListagemCliente;
 import feminine_beauty.api.repositories.ClienteRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

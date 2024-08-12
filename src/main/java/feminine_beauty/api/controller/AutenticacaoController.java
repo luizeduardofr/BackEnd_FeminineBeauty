@@ -1,7 +1,7 @@
 package feminine_beauty.api.controller;
 
-import feminine_beauty.api.domain.usuario.DadosAutenticacao;
-import feminine_beauty.api.domain.usuario.DadosRegistro;
+import feminine_beauty.api.dtos.usuario.DadosAutenticacao;
+import feminine_beauty.api.dtos.usuario.DadosRegistro;
 import feminine_beauty.api.domain.usuario.Usuario;
 import feminine_beauty.api.infra.security.DadosTokenJWT;
 import feminine_beauty.api.infra.security.TokenService;

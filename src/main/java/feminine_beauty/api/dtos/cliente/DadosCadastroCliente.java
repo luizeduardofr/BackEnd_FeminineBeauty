@@ -1,4 +1,4 @@
-package feminine_beauty.api.domain.cliente;
+package feminine_beauty.api.dtos.cliente;
 
 import feminine_beauty.api.domain.endereco.DadosEndereco;
 import jakarta.validation.Valid;
