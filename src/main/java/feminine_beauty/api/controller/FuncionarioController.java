@@ -1,6 +1,10 @@
 package feminine_beauty.api.controller;
 
 import feminine_beauty.api.domain.funcionario.*;
+import feminine_beauty.api.dtos.funcionario.DadosAtualizacaoFuncionario;
+import feminine_beauty.api.dtos.funcionario.DadosCadastroFuncionario;
+import feminine_beauty.api.dtos.funcionario.DadosDetalhamentoFuncionario;
+import feminine_beauty.api.dtos.funcionario.DadosListagemFuncionario;
 import feminine_beauty.api.repositories.FuncionarioRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

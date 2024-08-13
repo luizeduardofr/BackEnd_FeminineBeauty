@@ -1,5 +1,6 @@
 package feminine_beauty.api.domain.servico;
 
+import feminine_beauty.api.dtos.servico.DadosCadastroServico;
 import jakarta.persistence.*;
 import lombok.*;
 

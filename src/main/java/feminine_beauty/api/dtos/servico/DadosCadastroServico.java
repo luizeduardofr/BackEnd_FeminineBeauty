@@ -1,4 +1,4 @@
-package feminine_beauty.api.domain.servico;
+package feminine_beauty.api.dtos.servico;
 
 import jakarta.validation.constraints.NotBlank;
 

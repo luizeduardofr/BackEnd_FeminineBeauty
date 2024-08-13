@@ -2,6 +2,8 @@ package feminine_beauty.api.domain.funcionario;
 
 import feminine_beauty.api.domain.endereco.Endereco;
 import feminine_beauty.api.domain.servico.Servico;
+import feminine_beauty.api.dtos.funcionario.DadosAtualizacaoFuncionario;
+import feminine_beauty.api.dtos.funcionario.DadosCadastroFuncionario;
 import jakarta.persistence.*;
 import lombok.*;
 
