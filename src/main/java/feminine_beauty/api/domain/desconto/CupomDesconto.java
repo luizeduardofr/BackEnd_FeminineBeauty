@@ -1,10 +1,9 @@
-package feminine_beauty.api.domain.cupomDesconto;
+package feminine_beauty.api.domain.desconto;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.security.core.parameters.P;
 
 import java.util.Date;
 

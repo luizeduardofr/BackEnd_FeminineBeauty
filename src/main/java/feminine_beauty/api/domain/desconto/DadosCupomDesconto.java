@@ -1,4 +1,4 @@
-package feminine_beauty.api.domain.cupomDesconto;
+package feminine_beauty.api.domain.desconto;
 
 import jakarta.validation.constraints.NotBlank;
 

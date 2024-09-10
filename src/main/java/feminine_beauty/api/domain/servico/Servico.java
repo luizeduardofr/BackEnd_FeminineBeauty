@@ -1,6 +1,5 @@
 package feminine_beauty.api.domain.servico;
 
-import feminine_beauty.api.domain.cupomDesconto.CupomDesconto;
 import feminine_beauty.api.dtos.servico.DadosAtualizacaoServico;
 import feminine_beauty.api.dtos.servico.DadosCadastroServico;
 import jakarta.persistence.*;
@@ -19,7 +18,7 @@ public class Servico {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String descricao;
-    private String preco;
+    private Integer preco;
     private String imagem;
 
     private Boolean ativo;
