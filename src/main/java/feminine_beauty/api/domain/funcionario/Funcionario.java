@@ -2,6 +2,7 @@ package feminine_beauty.api.domain.funcionario;
 
 import feminine_beauty.api.domain.endereco.Endereco;
 import feminine_beauty.api.domain.servico.Servico;
+import feminine_beauty.api.domain.usuario.Usuario;
 import feminine_beauty.api.dtos.funcionario.DadosAtualizacaoFuncionario;
 import feminine_beauty.api.dtos.funcionario.DadosCadastroFuncionario;
 import jakarta.persistence.*;
@@ -29,6 +30,10 @@ public class Funcionario {
     @ManyToMany()
     @JoinTable(joinColumns = @JoinColumn(name = "funcionario_id"), inverseJoinColumns = @JoinColumn(name = "servico_id"))
     private List<Servico> listaServicos;
+
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinTable(joinColumns = @JoinColumn(name = "funcionario_id"), inverseJoinColumns = @JoinColumn(name = "usuario_id"))
+    private Usuario usuario;
 
     @Embedded
     private Endereco endereco;
