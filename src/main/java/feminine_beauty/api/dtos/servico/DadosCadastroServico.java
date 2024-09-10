@@ -1,7 +1,6 @@
 package feminine_beauty.api.dtos.servico;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 
 public record DadosCadastroServico(
 
@@ -9,5 +8,7 @@ public record DadosCadastroServico(
         String descricao,
 
         @NotBlank(message = "Preço é obrigatório.")
-        String preco) {
+        String preco,
+
+        String imagem) {
 }

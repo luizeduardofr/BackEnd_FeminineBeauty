@@ -1,5 +1,7 @@
 package feminine_beauty.api.domain.servico;
 
+import feminine_beauty.api.domain.cupomDesconto.CupomDesconto;
+import feminine_beauty.api.dtos.servico.DadosAtualizacaoServico;
 import feminine_beauty.api.dtos.servico.DadosCadastroServico;
 import jakarta.persistence.*;
 import lombok.*;
@@ -18,12 +20,21 @@ public class Servico {
     private Long id;
     private String descricao;
     private String preco;
+    private String imagem;
+
     private Boolean ativo;
 
-    private Servico (DadosCadastroServico dados) {
+    public Servico (DadosCadastroServico dados) {
         this.ativo = true;
         this.descricao = dados.descricao();
         this.preco = dados.preco();
+        this.imagem = dados.imagem();
+    }
+
+    public void atualizarInformacoes (DadosAtualizacaoServico dados) {
+        if (dados.preco() != null ) {
+            this.preco = dados.preco();
+        }
     }
 
     public void excluir() {
