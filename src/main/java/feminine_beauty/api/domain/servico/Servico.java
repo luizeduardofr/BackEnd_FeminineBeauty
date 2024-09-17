@@ -18,7 +18,7 @@ public class Servico {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String descricao;
-    private Integer preco;
+    private Double preco;
     private String imagem;
 
     private Boolean ativo;

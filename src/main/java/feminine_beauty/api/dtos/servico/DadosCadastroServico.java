@@ -8,7 +8,7 @@ public record DadosCadastroServico(
         String descricao,
 
         @NotBlank(message = "Preço é obrigatório.")
-        Integer preco,
+        Double preco,
 
         String imagem) {
 }

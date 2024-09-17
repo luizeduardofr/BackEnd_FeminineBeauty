@@ -1,6 +1,7 @@
 package feminine_beauty.api.domain.cliente;
 
 import feminine_beauty.api.domain.endereco.Endereco;
+import feminine_beauty.api.domain.usuario.Usuario;
 import feminine_beauty.api.dtos.cliente.DadosAtualizacaoCliente;
 import feminine_beauty.api.dtos.cliente.DadosCadastroCliente;
 import jakarta.persistence.*;
@@ -25,6 +26,10 @@ public class Cliente {
 
     @Embedded
     private Endereco endereco;
+
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinTable(joinColumns = @JoinColumn(name = "cliente_id"), inverseJoinColumns = @JoinColumn(name = "usuario_id"))
+    private Usuario usuario;
 
     private boolean ativo;
 

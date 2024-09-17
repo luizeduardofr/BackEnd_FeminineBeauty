@@ -6,5 +6,5 @@ import jakarta.validation.constraints.NotNull;
 public record DadosAtualizacaoServico(
         @NotNull
         Long id,
-        Integer preco) {
+        Double preco) {
 }
