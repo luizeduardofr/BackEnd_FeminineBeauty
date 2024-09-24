@@ -29,22 +29,9 @@ public class Consulta {
 
     private LocalDateTime data;
 
-    @Column(name = "motivo_cancelamento")
-    @Enumerated(EnumType.STRING)
-    private MotivoCancelamento motivoCancelamento;
+    private String tipoPagemento;
 
-    @Column(name = "tipo_pagamento")
-    @Enumerated(EnumType.STRING)
-    private TipoPagamento tipoPagamento;
-
-
-    public void cancelar(MotivoCancelamento motivoCancelamento) {
-        this.motivoCancelamento = motivoCancelamento;
-    }
-
-    public void pagamento(TipoPagamento tipoPagamento) {
-        this.tipoPagamento = tipoPagamento;
-    }
+    private String motivoCancelamento;
 }
 
 
