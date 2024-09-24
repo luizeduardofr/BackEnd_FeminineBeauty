@@ -19,7 +19,7 @@ public class Servico {
     private Long id;
     private String descricao;
     private Double preco;
-    private String imagem;
+    private String imagemUrl;
 
     private Boolean ativo;
 
@@ -27,12 +27,15 @@ public class Servico {
         this.ativo = true;
         this.descricao = dados.descricao();
         this.preco = dados.preco();
-        this.imagem = dados.imagem();
+        this.imagemUrl = dados.imagemUrl();
     }
 
     public void atualizarInformacoes (DadosAtualizacaoServico dados) {
         if (dados.preco() != null ) {
             this.preco = dados.preco();
+        }
+        if (dados.imagemUrl() != null) {
+            this.imagemUrl = dados.imagemUrl();
         }
     }
 

@@ -12,7 +12,10 @@ CREATE TABLE clientes (
     numero varchar(20),
     cidade varchar(100) not null,
     uf char(2) not null,
+    usuario_id bigint not null,
     ativo tinyint,
 
-    primary key (id)
+
+    primary key (id),
+    constraint fk_paciente_usuario_id foreign key(usuario_id) references usuarios(id)
 );

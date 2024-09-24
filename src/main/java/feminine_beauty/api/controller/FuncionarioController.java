@@ -1,18 +1,15 @@
 package feminine_beauty.api.controller;
 
-import feminine_beauty.api.domain.funcionario.*;
 import feminine_beauty.api.dtos.funcionario.DadosAtualizacaoFuncionario;
 import feminine_beauty.api.dtos.funcionario.DadosCadastroFuncionario;
-import feminine_beauty.api.dtos.funcionario.DadosDetalhamentoFuncionario;
 import feminine_beauty.api.dtos.funcionario.DadosListagemFuncionario;
-import feminine_beauty.api.repositories.FuncionarioRepository;
+import feminine_beauty.api.services.FuncionarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -21,46 +18,37 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class FuncionarioController {
 
     @Autowired
-    private FuncionarioRepository repository;
+    private FuncionarioService service;
 
     @PostMapping
-    @Transactional
-    public ResponseEntity cadastrar (@RequestBody @Valid DadosCadastroFuncionario dados, UriComponentsBuilder uriBuilder) {
-        var funcionario = new Funcionario(dados);
-        repository.save(funcionario);
-
-        var uri = uriBuilder.path("/funcionario/{id}").buildAndExpand(funcionario.getId()).toUri();
-
-        return ResponseEntity.created(uri).body(new DadosDetalhamentoFuncionario(funcionario));
+    public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroFuncionario dados, UriComponentsBuilder uriBuilder) {
+        var detalhamentoFuncionario = service.cadastrar(dados);
+        var uri = uriBuilder.path("/funcionarios/{id}").buildAndExpand(detalhamentoFuncionario.id()).toUri();
+        return ResponseEntity.created(uri).body(detalhamentoFuncionario);
     }
 
     @GetMapping
     public ResponseEntity<Page<DadosListagemFuncionario>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
-        var page = repository.findAllByAtivoTrue(paginacao).map(DadosListagemFuncionario::new);
+        var page = service.listar(paginacao);
         return ResponseEntity.ok(page);
     }
 
     @PutMapping
-    @Transactional
     public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoFuncionario dados) {
-        var funcionario = repository.getReferenceById(dados.id());
-        funcionario.atualizarInformacoes(dados);
-
-        return ResponseEntity.ok(new DadosDetalhamentoFuncionario(funcionario));
+        var detalhamentoFuncionario = service.atualizar(dados);
+        return ResponseEntity.ok(detalhamentoFuncionario);
     }
 
     @DeleteMapping("{id}")
-    @Transactional
     public ResponseEntity excluir(@PathVariable Long id) {
-        var funcionario = repository.getReferenceById(id);
-        funcionario.excluir();
-
+        service.excluir(id);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("{id}")
     public ResponseEntity detalhar(@PathVariable Long id) {
-        var funcionario = repository.getReferenceById(id);
-        return ResponseEntity.ok(new DadosDetalhamentoFuncionario(funcionario));
+        var detalhamentoFuncionario = service.detalhar(id);
+        return ResponseEntity.ok(detalhamentoFuncionario);
     }
 }
+

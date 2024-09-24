@@ -10,5 +10,5 @@ public record DadosCadastroServico(
         @NotBlank(message = "Preço é obrigatório.")
         Double preco,
 
-        String imagem) {
+        String imagemUrl) {
 }

@@ -6,5 +6,6 @@ import jakarta.validation.constraints.NotNull;
 public record DadosAtualizacaoServico(
         @NotNull
         Long id,
-        Double preco) {
+        Double preco,
+        String imagemUrl) {
 }
