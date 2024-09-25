@@ -9,6 +9,8 @@ import org.hibernate.validator.constraints.br.CPF;
 
 public record DadosCadastroFuncionario(
 
+
+
         @NotBlank(message = "Nome é obrigatório.")
         String nome,
 

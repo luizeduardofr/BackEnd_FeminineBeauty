@@ -30,7 +30,7 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> 
             order by rand()
             limit 1
             """)
-    Funcionario escolherMedicoAleatorioLivreNaData(Servico servico, LocalDateTime data);
+    Funcionario escolherFuncionarioAleatorioLivreNaData(Servico servico, LocalDateTime data);
 
     @Query("""
             select f.ativo

@@ -52,7 +52,7 @@ public class ConsultaService {
             throw new ValidacaoException("Não existe funcionario disponível nesse data!");
         }
 
-        var consulta = new Consulta(null, funcionario, cliente, dados.data(), null, null);
+        var consulta = new Consulta(null, funcionario, cliente, dados.data(), dados.tipoPagamento(), null);
         consultaRepository.save(consulta);
 
         return new DadosDetalhamentoConsulta(consulta);
@@ -64,10 +64,10 @@ public class ConsultaService {
         }
 
         if (dados.servico() == null) {
-            throw new ValidacaoException("Servico é obrigatório quando o médico não for escolhido!");
+            throw new ValidacaoException("Servico é obrigatório quando o funcionario não for escolhido!");
         }
 
-        return funcionarioRepository.escolherMedicoAleatorioLivreNaData(dados.servico(), dados.data());
+        return funcionarioRepository.escolherFuncionarioAleatorioLivreNaData(dados.servico(), dados.data());
     }
 
     public void cancelar(DadosCancelamentoConsulta dados) {
