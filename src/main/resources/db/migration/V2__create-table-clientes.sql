@@ -15,7 +15,6 @@ CREATE TABLE clientes (
     usuario_id bigint not null,
     ativo tinyint,
 
-
     primary key (id),
-    constraint fk_paciente_usuario_id foreign key(usuario_id) references usuarios(id)
+    constraint fk_cliente_usuario_id foreign key(usuario_id) references usuarios(id)
 );

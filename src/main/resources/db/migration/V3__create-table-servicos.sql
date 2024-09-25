@@ -7,5 +7,4 @@ CREATE TABLE servicos(
     ativo tinyint,
 
     primary key(id)
-
 );
