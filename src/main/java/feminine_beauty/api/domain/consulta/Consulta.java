@@ -33,15 +33,6 @@ public class Consulta {
 
     private String motivoCancelamento;
 
-    public Consulta(Long id, Funcionario funcionario, Cliente cliente, LocalDateTime data, String tipoPagamento, String motivoCancelamento) {
-        this.id = id;
-        this.funcionario = funcionario;
-        this.cliente = cliente;
-        this.data = data;
-        this.tipoPagamento = tipoPagamento;
-        this.motivoCancelamento = motivoCancelamento;
-    }
-
     public void cancelar(String motivoCancelamento){
         this.motivoCancelamento = motivoCancelamento;
     }
