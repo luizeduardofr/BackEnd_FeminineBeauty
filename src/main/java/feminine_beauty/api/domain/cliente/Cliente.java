@@ -35,6 +35,7 @@ public class Cliente {
 
     public Cliente (DadosCadastroCliente dados) {
         this.ativo = true;
+        this.usuario = new Usuario();
         this.nome = dados.nome();
         this.email = dados.email();
         this.telefone = dados.telefone();

@@ -9,21 +9,27 @@ import org.hibernate.validator.constraints.br.CPF;
 
 public record DadosCadastroCliente(
 
-        @NotBlank(message = "Nome é obrigatório.")
+        @NotBlank
+        String login,
+
+        @NotNull
+        String senha,
+
+        @NotBlank
         String nome,
 
-        @NotBlank(message = "Email é obrigatório.")
-        @Email(message = "Formato do email é inválido.")
+        @NotBlank
+        @Email
         String email,
 
-        @NotBlank(message = "Telefone é obrigatório.")
+        @NotBlank
         String telefone,
 
-        @NotBlank(message = "CPF é obrigatório.")
-        @CPF(message = "Formato do CPF é inválido.")
+        @NotBlank
+        @CPF
         String cpf,
 
-        @NotNull(message = "Dados do endereço são obrigatórios")
+        @NotNull
         @Valid
         DadosEndereco endereco) {
 }
