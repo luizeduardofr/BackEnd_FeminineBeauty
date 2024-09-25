@@ -1,6 +1,10 @@
-package feminine_beauty.api.domain.consulta;
+package feminine_beauty.api.services;
 
 import feminine_beauty.api.domain.ValidacaoException;
+import feminine_beauty.api.domain.consulta.Consulta;
+import feminine_beauty.api.domain.consulta.DadosAgendamentoConsulta;
+import feminine_beauty.api.domain.consulta.DadosCancelamentoConsulta;
+import feminine_beauty.api.domain.consulta.DadosDetalhamentoConsulta;
 import feminine_beauty.api.domain.consulta.validacoes.agendamento.ValidadorAgendamentoDeConsulta;
 import feminine_beauty.api.domain.consulta.validacoes.cancelamento.ValidadorCancelamentoDeConsulta;
 import feminine_beauty.api.domain.funcionario.Funcionario;
@@ -13,7 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class AgendaDeConsultas {
+public class ConsultaService {
 
     @Autowired
     private ConsultaRepository consultaRepository;
