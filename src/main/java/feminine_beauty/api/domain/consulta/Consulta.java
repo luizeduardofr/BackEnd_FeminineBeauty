@@ -31,7 +31,13 @@ public class Consulta {
 
     private String tipoPagemento;
 
-    private String motivoCancelamento;
+    @Column(name = "motivo_cancelamento")
+    @Enumerated(EnumType.STRING)
+    private MotivoCancelamento motivoCancelamento;
+
+    public void cancelar(MotivoCancelamento motivoCancelamento){
+        this.motivoCancelamento = motivoCancelamento;
+    }
 }
 
 

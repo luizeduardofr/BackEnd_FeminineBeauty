@@ -10,10 +10,10 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
     Page<Cliente> findAllByAtivoTrue(Pageable paginacao);
 
     @Query("""
-            select p.ativo
-            from Cliente p
+            select c.ativo
+            from Cliente c
             where
-            p.id = :id
+            c.id = :id
             """)
     boolean findAtivoById(Long id);
 }

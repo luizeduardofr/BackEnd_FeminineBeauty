@@ -14,7 +14,7 @@ public class ValidadorHorarioFuncionamentoSalao implements ValidadorAgendamentoD
         var antesDaAberturaDoSalao = dataConsulta.getHour() < 7;
         var depoisDoEncerramentoDoSalao = dataConsulta.getHour() > 18;
         if(domingo || antesDaAberturaDoSalao || depoisDoEncerramentoDoSalao){
-            throw new ValidacaoException("Consulta fora do horário de funcionamento do salao de beleza.");
+            throw new ValidacaoException("Consulta fora do horário de funcionamento do salão de beleza.");
         }
     }
 }
