@@ -16,5 +16,5 @@ CREATE TABLE clientes (
     ativo tinyint,
 
     primary key (id),
-    constraint fk_cliente_usuario_id foreign key(usuario_id) references usuarios(id)
+    constraint fk_clientes_usuario_id foreign key(usuario_id) references usuarios(id)
 );
