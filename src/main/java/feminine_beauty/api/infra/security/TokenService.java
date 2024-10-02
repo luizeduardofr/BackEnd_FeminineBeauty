@@ -21,9 +21,11 @@ public class TokenService {
     public String gerarToken(Usuario usuario){
         try {
             Algorithm algoritmo = Algorithm.HMAC256(secret);
+
             String token = JWT.create()
                     .withIssuer("API Feminine Beauty")
                     .withSubject(usuario.getLogin())
+                    .withClaim("role", usuario.getRole().getRole())
                     .withExpiresAt(dataExpiracao())
                     .sign(algoritmo);
             return token;

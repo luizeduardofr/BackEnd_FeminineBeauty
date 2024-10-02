@@ -13,24 +13,24 @@ import java.time.LocalDateTime;
 public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> {
     Page<Funcionario>findAllByAtivoTrue(Pageable paginacao);
 
-    @Query("""
-            select f from Funcionario f
-            where
-            f.ativo = true
-            and
-            f.servico = :servico
-            and
-            f.id not in(
-                select f.funcionario.id from Consulta c
-                where
-                c.data = :data
-            and
-                c.motivoCancelamento is null
-            )
-            order by rand()
-            limit 1
-            """)
-    Funcionario escolherFuncionarioAleatorioLivreNaData(Servico servico, LocalDateTime data);
+//    @Query("""
+//            select f from Funcionario f
+//            where
+//            f.ativo = true
+//            and
+//            f.servico = :servico
+//            and
+//            f.id not in(
+//                select f.funcionario.id from Consulta c
+//                where
+//                c.data = :data
+//            and
+//                c.motivoCancelamento is null
+//            )
+//            order by rand()
+//            limit 1
+//            """)
+//    Funcionario escolherFuncionarioAleatorioLivreNaData(Servico servico, LocalDateTime data);
 
     @Query("""
             select f.ativo

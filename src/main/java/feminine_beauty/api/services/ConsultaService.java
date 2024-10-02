@@ -59,15 +59,16 @@ public class ConsultaService {
     }
 
     private Funcionario escolherFuncionario(DadosAgendamentoConsulta dados) {
-        if (dados.idFuncionario() != null) {
-            return funcionarioRepository.getReferenceById(dados.idFuncionario());
+        if (dados.idFuncionario() == null) {
+            // TODO: alterar a lógica para quando não tiver funcionario informado, buscar um funcionário aleatório disponível
+            throw new ValidacaoException("Funcionário é obrigatório!");
         }
 
         if (dados.servico() == null) {
             throw new ValidacaoException("Servico é obrigatório quando o funcionario não for escolhido!");
         }
 
-        return funcionarioRepository.escolherFuncionarioAleatorioLivreNaData(dados.servico(), dados.data());
+        return funcionarioRepository.getReferenceById(dados.idFuncionario());
     }
 
     public void cancelar(DadosCancelamentoConsulta dados) {

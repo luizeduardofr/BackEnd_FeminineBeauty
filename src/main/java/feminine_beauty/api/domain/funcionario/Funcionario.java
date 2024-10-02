@@ -29,7 +29,7 @@ public class Funcionario {
 
     @ManyToMany()
     @JoinTable(joinColumns = @JoinColumn(name = "funcionario_id"), inverseJoinColumns = @JoinColumn(name = "servico_id"))
-    private List<Servico> listaServicos;
+    private List<Servico> servicos;
 
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinTable(joinColumns = @JoinColumn(name = "funcionario_id"), inverseJoinColumns = @JoinColumn(name = "usuario_id"))
