@@ -1,9 +1,6 @@
 CREATE TABLE usuarios (
-
-    id bigint not null auto_increment,
-    login varchar(100) not null,
-    senha varchar(255) not null,
-    role varchar(10) not null,
-
-    primary key (id)
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    login VARCHAR(255) NOT NULL,
+    senha VARCHAR(255) NOT NULL,
+    role ENUM('USER', 'FUNC', 'ADMIN') NOT NULL
 );

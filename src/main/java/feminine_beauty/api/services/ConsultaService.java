@@ -52,7 +52,7 @@ public class ConsultaService {
             throw new ValidacaoException("Não existe funcionario disponível nesse data!");
         }
 
-        var consulta = new Consulta(null, funcionario, cliente, dados.data(), dados.tipoPagamento(), null);
+        var consulta = new Consulta(funcionario, cliente, dados.data(), dados.tipoPagamento());
         consultaRepository.save(consulta);
 
         return new DadosDetalhamentoConsulta(consulta);

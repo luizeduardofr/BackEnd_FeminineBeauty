@@ -1,11 +1,14 @@
 package feminine_beauty.api.domain.cliente;
 
+import feminine_beauty.api.domain.consulta.Consulta;
 import feminine_beauty.api.domain.endereco.Endereco;
 import feminine_beauty.api.domain.usuario.Usuario;
 import feminine_beauty.api.dtos.cliente.DadosAtualizacaoCliente;
 import feminine_beauty.api.dtos.cliente.DadosCadastroCliente;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Table(name = "clientes")
 @Entity(name = "Cliente")
@@ -23,19 +26,19 @@ public class Cliente {
     private String email;
     private String telefone;
     private String cpf;
-
+    private boolean ativo;
     @Embedded
     private Endereco endereco;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinTable(joinColumns = @JoinColumn(name = "cliente_id"), inverseJoinColumns = @JoinColumn(name = "usuario_id"))
+    @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
+    private List<Consulta> consultas;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
-    private boolean ativo;
-
-    public Cliente (DadosCadastroCliente dados) {
+    public Cliente(DadosCadastroCliente dados) {
         this.ativo = true;
-        this.usuario = new Usuario();
         this.nome = dados.nome();
         this.email = dados.email();
         this.telefone = dados.telefone();

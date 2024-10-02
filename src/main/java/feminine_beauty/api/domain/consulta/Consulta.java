@@ -2,6 +2,7 @@ package feminine_beauty.api.domain.consulta;
 
 import feminine_beauty.api.domain.cliente.Cliente;
 import feminine_beauty.api.domain.funcionario.Funcionario;
+import feminine_beauty.api.domain.servico.Servico;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,6 +19,15 @@ public class Consulta {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private LocalDateTime data;
+    private String tipoPagamento;
+    private String motivoCancelamento;
+    @Enumerated(EnumType.STRING)
+    private StatusConsulta status;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "servico_id")
+    private Servico servico;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "funcionario_id")
@@ -27,11 +37,13 @@ public class Consulta {
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-    private LocalDateTime data;
-
-    private String tipoPagamento;
-
-    private String motivoCancelamento;
+    public Consulta(Funcionario funcionario, Cliente cliente, LocalDateTime data, String tipoPagamento) {
+        this.status = StatusConsulta.PENDENTE;
+        this.funcionario = funcionario;
+        this.cliente = cliente;
+        this.data = data;
+        this.tipoPagamento = tipoPagamento;
+    }
 
     public void cancelar(String motivoCancelamento){
         this.motivoCancelamento = motivoCancelamento;

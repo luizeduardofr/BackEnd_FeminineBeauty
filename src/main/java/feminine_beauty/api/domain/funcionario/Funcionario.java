@@ -1,5 +1,6 @@
 package feminine_beauty.api.domain.funcionario;
 
+import feminine_beauty.api.domain.consulta.Consulta;
 import feminine_beauty.api.domain.endereco.Endereco;
 import feminine_beauty.api.domain.servico.Servico;
 import feminine_beauty.api.domain.usuario.Usuario;
@@ -26,21 +27,25 @@ public class Funcionario {
     private String email;
     private String telefone;
     private String cpf;
-
-    @ManyToMany()
-    @JoinTable(joinColumns = @JoinColumn(name = "funcionario_id"), inverseJoinColumns = @JoinColumn(name = "servico_id"))
-    private List<Servico> servicos;
-
-    @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinTable(joinColumns = @JoinColumn(name = "funcionario_id"), inverseJoinColumns = @JoinColumn(name = "usuario_id"))
-    private Usuario usuario;
-
+    private Boolean ativo;
     @Embedded
     private Endereco endereco;
 
-    private Boolean ativo;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
 
-    public Funcionario (DadosCadastroFuncionario dados) {
+    @OneToMany(mappedBy = "funcionario", fetch = FetchType.LAZY)
+    private List<Consulta> consultas;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "funcionarios_servicos",
+            joinColumns = @JoinColumn(name = "funcionario_id"),
+            inverseJoinColumns = @JoinColumn(name = "servico_id"))
+    private List<Servico> servicos;
+
+    public Funcionario(DadosCadastroFuncionario dados) {
         this.ativo = true;
         this.usuario = new Usuario();
         this.nome = dados.nome();
@@ -50,7 +55,7 @@ public class Funcionario {
         this.endereco = new Endereco(dados.endereco());
     }
 
-    public void atualizarInformacoes (DadosAtualizacaoFuncionario dados) {
+    public void atualizarInformacoes(DadosAtualizacaoFuncionario dados) {
         if (dados.nome() != null){
             this.nome = dados.nome();
         }

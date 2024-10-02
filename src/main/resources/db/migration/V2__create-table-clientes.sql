@@ -1,20 +1,17 @@
 CREATE TABLE clientes (
-
-    id bigint not null auto_increment,
-    nome varchar(100) not null,
-    email varchar(100) not null unique,
-    telefone varchar(20) not null,
-    cpf varchar(11) not null unique,
-    logradouro varchar(100) not null,
-    bairro varchar(100) not null,
-    cep varchar(9) not null,
-    complemento varchar(100),
-    numero varchar(20),
-    cidade varchar(100) not null,
-    uf char(2) not null,
-    usuario_id bigint not null,
-    ativo tinyint,
-
-    primary key (id),
-    constraint fk_clientes_usuario_id foreign key(usuario_id) references usuarios(id)
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    telefone VARCHAR(20),
+    cpf VARCHAR(20),
+    logradouro VARCHAR(100) NOT NULL,
+    bairro VARCHAR(100) NOT NULL,
+    cep VARCHAR(9) NOT NULL,
+    complemento VARCHAR(100),
+    numero VARCHAR(20),
+    cidade VARCHAR(100) NOT NULL,
+    uf CHAR(2) NOT NULL,
+    ativo BOOLEAN NOT NULL,
+    usuario_id BIGINT,
+    CONSTRAINT fk_cliente_usuario FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
 );

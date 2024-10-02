@@ -1,10 +1,8 @@
-CREATE TABLE servicos(
-
-    id bigint not null auto_increment,
-    descricao varchar(50) not null,
-    preco double not null,
-    imagemUrl varchar(200),
-    ativo tinyint,
-
-    primary key(id)
+CREATE TABLE servicos (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    descricao VARCHAR(50) NOT NULL,
+    preco DOUBLE,
+    duracao BIGINT,
+    imagem_url VARCHAR(255),
+    ativo BOOLEAN NOT NULL
 );
