@@ -1,5 +1,6 @@
 package feminine_beauty.api.domain.funcionario;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import feminine_beauty.api.domain.consulta.Consulta;
 import feminine_beauty.api.domain.endereco.Endereco;
 import feminine_beauty.api.domain.servico.Servico;
@@ -31,14 +32,14 @@ public class Funcionario {
     @Embedded
     private Endereco endereco;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
     @OneToMany(mappedBy = "funcionario", fetch = FetchType.LAZY)
     private List<Consulta> consultas;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinTable(
             name = "funcionarios_servicos",
             joinColumns = @JoinColumn(name = "funcionario_id"),
@@ -47,11 +48,11 @@ public class Funcionario {
 
     public Funcionario(DadosCadastroFuncionario dados) {
         this.ativo = true;
-        this.usuario = new Usuario();
         this.nome = dados.nome();
         this.email = dados.email();
         this.telefone = dados.telefone();
         this.cpf = dados.cpf();
+        this.servicos = dados.servicos();
         this.endereco = new Endereco(dados.endereco());
     }
 

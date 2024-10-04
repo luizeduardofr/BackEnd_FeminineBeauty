@@ -3,7 +3,7 @@ package feminine_beauty.api.services;
 import feminine_beauty.api.domain.servico.Servico;
 import feminine_beauty.api.dtos.servico.DadosAtualizacaoServico;
 import feminine_beauty.api.dtos.servico.DadosCadastroServico;
-import feminine_beauty.api.dtos.servico.ServicoResponse;
+import feminine_beauty.api.dtos.servico.DadosListagemServico;
 import feminine_beauty.api.repositories.ServicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,21 +18,25 @@ public class ServicoService {
     private ServicoRepository repository;
 
     @Transactional
-    public ServicoResponse cadastrar(DadosCadastroServico dados) {
+    public DadosListagemServico cadastrar(DadosCadastroServico dados) {
         var servico = new Servico(dados);
         repository.save(servico);
-        return new ServicoResponse(servico);
+        return new DadosListagemServico(servico);
     }
 
-    public Page<ServicoResponse> listar(Pageable paginacao) {
-        return repository.findAllByAtivoTrue(paginacao).map(ServicoResponse::new);
+    public Page<DadosListagemServico> listar(Pageable paginacao) {
+        return repository.findAllByAtivoTrue(paginacao).map(DadosListagemServico::new);
     }
 
     @Transactional
-    public ServicoResponse atualizar(DadosAtualizacaoServico dados) {
+    public DadosListagemServico atualizar(DadosAtualizacaoServico dados) {
         var servico = repository.getReferenceById(dados.id());
-        servico.atualizarInformacoes(dados);
-        return new ServicoResponse(servico);
+        servico.setAtivo(dados.ativo());
+        servico.setDescricao(dados.descricao());
+        servico.setPreco(dados.preco());
+        servico.setDuracao(dados.duracao());
+        servico.setImagemUrl(dados.imagemUrl());
+        return new DadosListagemServico(servico);
     }
 
     @Transactional
@@ -41,9 +45,9 @@ public class ServicoService {
         servico.excluir();
     }
 
-    public ServicoResponse detalhar(Long id) {
+    public DadosListagemServico detalhar(Long id) {
         var servico = repository.getReferenceById(id);
-        return new ServicoResponse(servico);
+        return new DadosListagemServico(servico);
     }
 }
 

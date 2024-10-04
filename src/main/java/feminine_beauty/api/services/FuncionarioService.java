@@ -1,6 +1,7 @@
 package feminine_beauty.api.services;
 
 import feminine_beauty.api.domain.ValidacaoException;
+import feminine_beauty.api.domain.endereco.Endereco;
 import feminine_beauty.api.domain.funcionario.Funcionario;
 import feminine_beauty.api.domain.usuario.UserRole;
 import feminine_beauty.api.domain.usuario.Usuario;
@@ -51,7 +52,13 @@ public class FuncionarioService {
     @Transactional
     public DadosDetalhamentoFuncionario atualizar(DadosAtualizacaoFuncionario dados) {
         var funcionario = funcionarioRepository.getReferenceById(dados.id());
-        funcionario.atualizarInformacoes(dados);
+        funcionario.setNome(dados.nome());
+        funcionario.setEmail(dados.email());
+        funcionario.setTelefone(dados.telefone());
+        funcionario.setCpf(dados.cpf());
+        funcionario.setAtivo(dados.ativo());
+        funcionario.setServicos(dados.servicos());
+        funcionario.setEndereco(new Endereco(dados.endereco()));
         return new DadosDetalhamentoFuncionario(funcionario);
     }
 

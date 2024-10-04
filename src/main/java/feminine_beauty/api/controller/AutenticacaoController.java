@@ -2,13 +2,16 @@ package feminine_beauty.api.controller;
 
 import feminine_beauty.api.domain.cliente.Cliente;
 import feminine_beauty.api.domain.endereco.Endereco;
+import feminine_beauty.api.domain.funcionario.Funcionario;
 import feminine_beauty.api.domain.usuario.UserRole;
 import feminine_beauty.api.dtos.cliente.DadosCadastroCliente;
+import feminine_beauty.api.dtos.funcionario.DadosCadastroFuncionario;
 import feminine_beauty.api.dtos.usuario.DadosAutenticacao;
 import feminine_beauty.api.domain.usuario.Usuario;
 import feminine_beauty.api.infra.security.DadosTokenJWT;
 import feminine_beauty.api.infra.security.TokenService;
 import feminine_beauty.api.repositories.ClienteRepository;
+import feminine_beauty.api.repositories.FuncionarioRepository;
 import feminine_beauty.api.repositories.UsuarioRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +39,9 @@ public class AutenticacaoController {
     private ClienteRepository clienteRepository;
 
     @Autowired
+    private FuncionarioRepository funcionarioRepository;
+
+    @Autowired
     private TokenService tokenService;
 
     @PostMapping("/login")
@@ -49,7 +55,7 @@ public class AutenticacaoController {
     }
 
     @PostMapping("/registro")
-    public ResponseEntity<Void> efetuarRegistro(@RequestBody @Valid DadosCadastroCliente dados) {
+    public ResponseEntity<Void> efetuarRegistroCliente(@RequestBody @Valid DadosCadastroCliente dados) {
 
         if (this.repository.findByLogin(dados.login()) != null) {
             return ResponseEntity.badRequest().build();

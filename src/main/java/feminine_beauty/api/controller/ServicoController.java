@@ -2,7 +2,7 @@ package feminine_beauty.api.controller;
 
 import feminine_beauty.api.dtos.servico.DadosAtualizacaoServico;
 import feminine_beauty.api.dtos.servico.DadosCadastroServico;
-import feminine_beauty.api.dtos.servico.ServicoResponse;
+import feminine_beauty.api.dtos.servico.DadosListagemServico;
 import feminine_beauty.api.services.ServicoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class ServicoController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<ServicoResponse>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+    public ResponseEntity<Page<DadosListagemServico>> listar(@PageableDefault(size = 10, sort = {"descricao"}) Pageable paginacao) {
         var page = service.listar(paginacao);
         return ResponseEntity.ok(page);
     }

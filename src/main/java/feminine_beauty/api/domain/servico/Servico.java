@@ -27,7 +27,7 @@ public class Servico {
     private String imagemUrl;
     private Boolean ativo;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinTable(
             name = "funcionarios_servicos",
             joinColumns = @JoinColumn(name = "servico_id"),
@@ -38,20 +38,11 @@ public class Servico {
     private List<Consulta> consultas;
 
     public Servico(DadosCadastroServico dados) {
-        this.ativo = true;
+        this.ativo = dados.ativo() != null ? dados.ativo() : true;
         this.descricao = dados.descricao();
         this.preco = dados.preco();
         this.duracao = dados.duracao();
         this.imagemUrl = dados.imagemUrl();
-    }
-
-    public void atualizarInformacoes(DadosAtualizacaoServico dados) {
-        if (dados.preco() != null ) {
-            this.preco = dados.preco();
-        }
-        if (dados.imagemUrl() != null) {
-            this.imagemUrl = dados.imagemUrl();
-        }
     }
 
     public void excluir() {
