@@ -43,7 +43,7 @@ public class ClienteService {
     }
 
     public DadosDetalhamentoCliente detalhar(Long id) {
-        var cliente = repository.getReferenceById(id);
+        var cliente = repository.findByUsuarioId(id);
         return new DadosDetalhamentoCliente(cliente);
     }
 }

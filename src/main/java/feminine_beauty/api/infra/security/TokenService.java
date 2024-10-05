@@ -22,13 +22,13 @@ public class TokenService {
         try {
             Algorithm algoritmo = Algorithm.HMAC256(secret);
 
-            String token = JWT.create()
+            return JWT.create()
                     .withIssuer("API Feminine Beauty")
                     .withSubject(usuario.getLogin())
-                    .withClaim("role", usuario.getRole().getRole())
                     .withExpiresAt(dataExpiracao())
+                    .withClaim("id", usuario.getId())
+                    .withClaim("role", usuario.getRole().getRole())
                     .sign(algoritmo);
-            return token;
         } catch (JWTCreationException exception) {
             throw new RuntimeException("Erro ao gerar token jwt", exception);
         }

@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.Query;
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
     Page<Cliente> findAllByAtivoTrue(Pageable paginacao);
 
+    Cliente findByUsuarioId(Long id);
+
     @Query("""
             select c.ativo
             from Cliente c

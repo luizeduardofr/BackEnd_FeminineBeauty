@@ -13,6 +13,8 @@ import java.time.LocalDateTime;
 public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> {
     Page<Funcionario>findAllByAtivoTrue(Pageable paginacao);
 
+    Funcionario findByUsuarioId(Long id);
+
 //    @Query("""
 //            select f from Funcionario f
 //            where

@@ -69,7 +69,7 @@ public class FuncionarioService {
     }
 
     public DadosDetalhamentoFuncionario detalhar(Long id) {
-        var funcionario = funcionarioRepository.getReferenceById(id);
+        var funcionario = funcionarioRepository.findByUsuarioId(id);
         return new DadosDetalhamentoFuncionario(funcionario);
     }
 }
