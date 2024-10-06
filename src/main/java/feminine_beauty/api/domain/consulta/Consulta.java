@@ -3,6 +3,7 @@ package feminine_beauty.api.domain.consulta;
 import feminine_beauty.api.domain.cliente.Cliente;
 import feminine_beauty.api.domain.funcionario.Funcionario;
 import feminine_beauty.api.domain.servico.Servico;
+import feminine_beauty.api.dtos.consulta.StatusConsulta;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,6 +23,7 @@ public class Consulta {
     private LocalDateTime data;
     private String tipoPagamento;
     private String motivoCancelamento;
+
     @Enumerated(EnumType.STRING)
     private StatusConsulta status;
 
@@ -37,15 +39,18 @@ public class Consulta {
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-    public Consulta(Funcionario funcionario, Cliente cliente, LocalDateTime data, String tipoPagamento) {
+    public Consulta(Funcionario funcionario, Cliente cliente, Servico servico, LocalDateTime data,
+                    String tipoPagamento) {
         this.status = StatusConsulta.PENDENTE;
         this.funcionario = funcionario;
+        this.servico = servico;
         this.cliente = cliente;
         this.data = data;
         this.tipoPagamento = tipoPagamento;
     }
 
     public void cancelar(String motivoCancelamento){
+        this.status = StatusConsulta.PENDENTE;
         this.motivoCancelamento = motivoCancelamento;
     }
 }

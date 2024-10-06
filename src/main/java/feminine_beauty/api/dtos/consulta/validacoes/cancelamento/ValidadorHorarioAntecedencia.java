@@ -1,7 +1,7 @@
-package feminine_beauty.api.domain.consulta.validacoes.cancelamento;
+package feminine_beauty.api.dtos.consulta.validacoes.cancelamento;
 
 import feminine_beauty.api.domain.ValidacaoException;
-import feminine_beauty.api.domain.consulta.DadosCancelamentoConsulta;
+import feminine_beauty.api.dtos.consulta.DadosCancelamentoConsulta;
 import feminine_beauty.api.repositories.ConsultaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

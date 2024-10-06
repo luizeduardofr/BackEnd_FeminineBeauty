@@ -9,6 +9,7 @@ import feminine_beauty.api.dtos.funcionario.DadosAtualizacaoFuncionario;
 import feminine_beauty.api.dtos.funcionario.DadosCadastroFuncionario;
 import feminine_beauty.api.dtos.funcionario.DadosDetalhamentoFuncionario;
 import feminine_beauty.api.dtos.funcionario.DadosListagemFuncionario;
+import feminine_beauty.api.dtos.servico.DadosListagemServico;
 import feminine_beauty.api.repositories.FuncionarioRepository;
 import feminine_beauty.api.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class FuncionarioService {
@@ -56,7 +59,6 @@ public class FuncionarioService {
         funcionario.setEmail(dados.email());
         funcionario.setTelefone(dados.telefone());
         funcionario.setCpf(dados.cpf());
-        funcionario.setAtivo(dados.ativo());
         funcionario.setServicos(dados.servicos());
         funcionario.setEndereco(new Endereco(dados.endereco()));
         return new DadosDetalhamentoFuncionario(funcionario);
@@ -71,6 +73,10 @@ public class FuncionarioService {
     public DadosDetalhamentoFuncionario detalhar(Long id) {
         var funcionario = funcionarioRepository.findByUsuarioId(id);
         return new DadosDetalhamentoFuncionario(funcionario);
+    }
+
+    public List<DadosListagemFuncionario> listarServicosDoFuncionario(Long idServico) {
+        return funcionarioRepository.findAllByAtivoTrueAndServicosId(idServico).stream().map(DadosListagemFuncionario::new).toList();
     }
 }
 

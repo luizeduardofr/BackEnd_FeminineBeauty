@@ -13,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("funcionarios")
 public class FuncionarioController {
@@ -49,6 +51,12 @@ public class FuncionarioController {
     public ResponseEntity detalhar(@PathVariable Long id) {
         var detalhamentoFuncionario = service.detalhar(id);
         return ResponseEntity.ok(detalhamentoFuncionario);
+    }
+
+    @GetMapping("/servicos/{idServico}")
+    public ResponseEntity<List<DadosListagemFuncionario>> listarServicosDoFuncionario(@PathVariable Long idServico) {
+        var servicos = service.listarServicosDoFuncionario(idServico);
+        return ResponseEntity.ok(servicos);
     }
 }
 

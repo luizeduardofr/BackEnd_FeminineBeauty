@@ -3,7 +3,7 @@ CREATE TABLE consultas (
     data DATETIME NOT NULL,
     tipo_pagamento VARCHAR(50) NOT NULL,
     motivo_cancelamento VARCHAR(50),
-    status ENUM('PENDING', 'CONFIRMED', 'CANCELLED') NOT NULL,
+    status ENUM('PENDENTE', 'CANCELADO', 'CONCLUIDO') NOT NULL,
     servico_id BIGINT,
     funcionario_id BIGINT,
     cliente_id BIGINT,
