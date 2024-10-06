@@ -74,6 +74,7 @@ public class ConsultaService {
 
         var consulta = consultaRepository.getReferenceById(dados.idConsulta());
         consulta.cancelar(dados.motivoCancelamento());
+        consultaRepository.save(consulta);
     }
 
     public Page<DadosListagemConsulta> listar(Long idCliente, Pageable paginacao) {

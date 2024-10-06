@@ -44,8 +44,8 @@ public class ConsultaController {
 
     @DeleteMapping
     @Transactional
-    public ResponseEntity cancelar(@RequestBody @Valid DadosCancelamentoConsulta dados) {
+    public ResponseEntity<Void> cancelar(@RequestBody @Valid DadosCancelamentoConsulta dados) {
         consultaService.cancelar(dados);
-        return ResponseEntity.ok("Consulta cancelada com sucesso!");
+        return ResponseEntity.ok().build();
     }
 }

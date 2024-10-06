@@ -50,7 +50,7 @@ public class Consulta {
     }
 
     public void cancelar(String motivoCancelamento){
-        this.status = StatusConsulta.PENDENTE;
+        this.status = StatusConsulta.CANCELADO;
         this.motivoCancelamento = motivoCancelamento;
     }
 }
