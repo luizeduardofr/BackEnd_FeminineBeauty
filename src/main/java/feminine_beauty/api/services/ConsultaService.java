@@ -77,11 +77,31 @@ public class ConsultaService {
         consultaRepository.save(consulta);
     }
 
-    public Page<DadosListagemConsulta> listar(Long idCliente, Pageable paginacao) {
+    public Page<DadosListagemConsulta> listarConsultasCliente(Long idCliente, Pageable paginacao) {
         return consultaRepository.findByClienteIdAndStatus(paginacao, idCliente, StatusConsulta.PENDENTE).map(DadosListagemConsulta::new);
     }
 
-    public Page<DadosListagemConsulta> listarOld(Long idCliente, Pageable paginacao) {
+    public Page<DadosListagemConsulta> listarOldConsultasCliente(Long idCliente, Pageable paginacao) {
         return consultaRepository.findByClienteIdAndStatusNot(paginacao, idCliente, StatusConsulta.PENDENTE).map(DadosListagemConsulta::new);
+    }
+
+    public DadosListagemConsulta concluir(Long idConsulta) {
+        if (!consultaRepository.existsById(idConsulta)) {
+            throw new ValidacaoException("Id da consulta informado não existe!");
+        }
+
+        var consulta = consultaRepository.getReferenceById(idConsulta);
+        consulta.concluir();
+        var consultaConcluida = consultaRepository.save(consulta);
+
+        return new DadosListagemConsulta(consultaConcluida);
+    }
+
+    public Page<DadosListagemConsulta> listarConsultasFuncionario(Long idFuncionario, Pageable paginacao) {
+        return consultaRepository.findByFuncionarioIdAndStatus(paginacao, idFuncionario, StatusConsulta.PENDENTE).map(DadosListagemConsulta::new);
+    }
+
+    public Page<DadosListagemConsulta> listarOldConsultasFuncionario(Long idFuncionario, Pageable paginacao) {
+        return consultaRepository.findByFuncionarioIdAndStatusNot(paginacao, idFuncionario, StatusConsulta.PENDENTE).map(DadosListagemConsulta::new);
     }
 }

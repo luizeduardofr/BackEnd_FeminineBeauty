@@ -53,6 +53,10 @@ public class Consulta {
         this.status = StatusConsulta.CANCELADO;
         this.motivoCancelamento = motivoCancelamento;
     }
+
+    public void concluir() {
+        this.status = StatusConsulta.CONCLUIDO;
+    }
 }
 
 

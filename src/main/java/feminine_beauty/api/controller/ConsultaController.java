@@ -14,8 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("consultas")
 public class ConsultaController {
@@ -24,21 +22,48 @@ public class ConsultaController {
     private ConsultaService consultaService;
 
     @GetMapping("/cliente/{idCliente}")
-    public ResponseEntity<Page<DadosListagemConsulta>> listar(@PathVariable Long idCliente, @PageableDefault(size = 10,
-            sort = {"data"}, direction = Sort.Direction.ASC) Pageable paginacao) {
-        return ResponseEntity.ok(consultaService.listar(idCliente, paginacao));
+    public ResponseEntity<Page<DadosListagemConsulta>> listarConsultasCliente(
+            @PathVariable Long idCliente,
+            @PageableDefault(size = 10, sort = {"data"}, direction = Sort.Direction.ASC) Pageable paginacao
+    ) {
+        return ResponseEntity.ok(consultaService.listarConsultasCliente(idCliente, paginacao));
     }
 
     @GetMapping("/old/cliente/{idCliente}")
-    public ResponseEntity<Page<DadosListagemConsulta>> listarOld(@PathVariable Long idCliente, @PageableDefault(size =
-            10, sort = {"data"}, direction = Sort.Direction.DESC) Pageable paginacao) {
-        return ResponseEntity.ok(consultaService.listarOld(idCliente, paginacao));
+    public ResponseEntity<Page<DadosListagemConsulta>> listarOldConsultasCliente(
+            @PathVariable Long idCliente,
+            @PageableDefault(size = 10, sort = {"data"}, direction = Sort.Direction.DESC) Pageable paginacao
+    ) {
+        return ResponseEntity.ok(consultaService.listarOldConsultasCliente(idCliente, paginacao));
+    }
+
+    @GetMapping("/funcionario/{idFuncionario}")
+    public ResponseEntity<Page<DadosListagemConsulta>> listarConsultasFuncionario(
+            @PathVariable Long idFuncionario,
+            @PageableDefault(size = 10, sort = {"data"}, direction = Sort.Direction.ASC) Pageable paginacao
+    ) {
+        return ResponseEntity.ok(consultaService.listarConsultasFuncionario(idFuncionario, paginacao));
+    }
+
+    @GetMapping("/old/funcionario/{idFuncionario}")
+    public ResponseEntity<Page<DadosListagemConsulta>> listarOldConsultasFuncionario(
+            @PathVariable Long idFuncionario,
+            @PageableDefault(size = 10, sort = {"data"}, direction = Sort.Direction.DESC) Pageable paginacao
+    ) {
+        return ResponseEntity.ok(consultaService.listarOldConsultasFuncionario(idFuncionario, paginacao));
     }
 
     @PostMapping
     @Transactional
     public ResponseEntity<DadosListagemConsulta> agendar(@RequestBody @Valid DadosAgendamentoConsulta dados) {
         var dto = consultaService.agendar(dados);
+        return ResponseEntity.ok(dto);
+    }
+
+    @PutMapping("/concluir")
+    @Transactional
+    public ResponseEntity<DadosListagemConsulta> concluir(@RequestBody Long idConsulta) {
+        var dto = consultaService.concluir(idConsulta);
         return ResponseEntity.ok(dto);
     }
 

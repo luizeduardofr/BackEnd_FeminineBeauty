@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public interface ConsultaRepository extends JpaRepository<Consulta, Long> {
 
@@ -18,4 +19,8 @@ public interface ConsultaRepository extends JpaRepository<Consulta, Long> {
     boolean existsByFuncionarioIdAndDataAndMotivoCancelamentoIsNull(Long idFuncionario, LocalDateTime data);
 
     boolean existsByClienteIdAndDataBetween(Long idCliente, LocalDateTime primeiroHorario, LocalDateTime ultimoHorario);
+
+    Page<Consulta> findByFuncionarioIdAndStatus(Pageable paginacao, Long idFuncionario, StatusConsulta statusConsulta);
+
+    Page<Consulta> findByFuncionarioIdAndStatusNot(Pageable paginacao, Long idCliente, StatusConsulta status);
 }
