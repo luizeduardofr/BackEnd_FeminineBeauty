@@ -1,10 +1,7 @@
 package feminine_beauty.api.services;
 
 import feminine_beauty.api.domain.ValidacaoException;
-import feminine_beauty.api.domain.cliente.Cliente;
 import feminine_beauty.api.domain.consulta.Consulta;
-import feminine_beauty.api.domain.funcionario.Funcionario;
-import feminine_beauty.api.domain.servico.Servico;
 import feminine_beauty.api.dtos.consulta.ConsultaSpecification;
 import feminine_beauty.api.dtos.consulta.DadosAgendamentoConsulta;
 import feminine_beauty.api.dtos.consulta.DadosCancelamentoConsulta;
@@ -17,14 +14,10 @@ import feminine_beauty.api.repositories.ConsultaRepository;
 import feminine_beauty.api.repositories.FuncionarioRepository;
 import feminine_beauty.api.repositories.ServicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 @Service

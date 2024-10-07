@@ -11,8 +11,7 @@ import java.time.LocalDateTime;
 
 public record DadosAgendamentoConsulta(
 
-        @NotBlank(message = "Data é obrigatória")
-        @Future(message = "Data deve ser futura")
+        @NotNull(message = "Data é obrigatória")
         LocalDateTime data,
 
         @NotBlank(message = "Tipo de pagamento é obrigatório")

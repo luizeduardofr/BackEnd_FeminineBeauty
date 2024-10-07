@@ -4,7 +4,9 @@ import feminine_beauty.api.domain.ValidacaoException;
 import feminine_beauty.api.dtos.consulta.DadosAgendamentoConsulta;
 import feminine_beauty.api.repositories.FuncionarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component()
 public class ValidadorFuncionarioAtivo implements ValidadorAgendamentoDeConsulta {
 
     @Autowired
