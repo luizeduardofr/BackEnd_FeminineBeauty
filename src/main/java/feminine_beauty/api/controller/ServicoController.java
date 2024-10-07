@@ -1,5 +1,6 @@
 package feminine_beauty.api.controller;
 
+import feminine_beauty.api.dtos.funcionario.DadosListagemFuncionario;
 import feminine_beauty.api.dtos.servico.DadosAtualizacaoServico;
 import feminine_beauty.api.dtos.servico.DadosCadastroServico;
 import feminine_beauty.api.dtos.servico.DadosListagemServico;
@@ -52,6 +53,13 @@ public class ServicoController {
         var servicoResponse = service.detalhar(id);
         return ResponseEntity.ok(servicoResponse);
     }
+
+    @GetMapping("/funcionario/{idFuncionario}")
+    public ResponseEntity<List<DadosListagemServico>> listarServicosDoFuncionario(@PathVariable Long idFuncionario) {
+        var servicos = service.listarServicosDoFuncionario(idFuncionario);
+        return ResponseEntity.ok(servicos);
+    }
+
 }
 
 

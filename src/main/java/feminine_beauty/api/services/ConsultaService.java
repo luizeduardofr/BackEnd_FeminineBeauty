@@ -1,7 +1,11 @@
 package feminine_beauty.api.services;
 
 import feminine_beauty.api.domain.ValidacaoException;
+import feminine_beauty.api.domain.cliente.Cliente;
 import feminine_beauty.api.domain.consulta.Consulta;
+import feminine_beauty.api.domain.funcionario.Funcionario;
+import feminine_beauty.api.domain.servico.Servico;
+import feminine_beauty.api.dtos.consulta.ConsultaSpecification;
 import feminine_beauty.api.dtos.consulta.DadosAgendamentoConsulta;
 import feminine_beauty.api.dtos.consulta.DadosCancelamentoConsulta;
 import feminine_beauty.api.dtos.consulta.DadosListagemConsulta;
@@ -13,10 +17,14 @@ import feminine_beauty.api.repositories.ConsultaRepository;
 import feminine_beauty.api.repositories.FuncionarioRepository;
 import feminine_beauty.api.repositories.ServicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -77,12 +85,31 @@ public class ConsultaService {
         consultaRepository.save(consulta);
     }
 
-    public Page<DadosListagemConsulta> listarConsultasCliente(Long idCliente, Pageable paginacao) {
-        return consultaRepository.findByClienteIdAndStatus(paginacao, idCliente, StatusConsulta.PENDENTE).map(DadosListagemConsulta::new);
+    public Page<DadosListagemConsulta> listarConsultasCliente(Long idCliente, Long idServico, Long idFuncionario, Pageable paginacao) {
+        var specs = ConsultaSpecification.clienteId(idCliente).and(ConsultaSpecification.status(StatusConsulta.PENDENTE));
+        if (idServico != null) {
+            specs = specs.and(ConsultaSpecification.servicoId(idServico));
+        }
+        if (idFuncionario != null) {
+            specs = specs.and(ConsultaSpecification.funcionarioId(idFuncionario));
+        }
+        return consultaRepository.findAll(specs, paginacao).map(DadosListagemConsulta::new);
     }
 
-    public Page<DadosListagemConsulta> listarOldConsultasCliente(Long idCliente, Pageable paginacao) {
-        return consultaRepository.findByClienteIdAndStatusNot(paginacao, idCliente, StatusConsulta.PENDENTE).map(DadosListagemConsulta::new);
+    public Page<DadosListagemConsulta> listarOldConsultasCliente(Long idCliente, Long idServico, Long idFuncionario, StatusConsulta status, Pageable paginacao) {
+        var specs = ConsultaSpecification.clienteId(idCliente);
+        if (idServico != null) {
+            specs = specs.and(ConsultaSpecification.servicoId(idServico));
+        }
+        if (idFuncionario != null) {
+            specs = specs.and(ConsultaSpecification.funcionarioId(idFuncionario));
+        }
+        if (status != null) {
+            specs = specs.and(ConsultaSpecification.status(status));
+        } else {
+            specs = specs.and(ConsultaSpecification.statusNot(StatusConsulta.PENDENTE));
+        }
+        return consultaRepository.findAll(specs, paginacao).map(DadosListagemConsulta::new);
     }
 
     public DadosListagemConsulta concluir(Long idConsulta) {
@@ -97,11 +124,25 @@ public class ConsultaService {
         return new DadosListagemConsulta(consultaConcluida);
     }
 
-    public Page<DadosListagemConsulta> listarConsultasFuncionario(Long idFuncionario, Pageable paginacao) {
-        return consultaRepository.findByFuncionarioIdAndStatus(paginacao, idFuncionario, StatusConsulta.PENDENTE).map(DadosListagemConsulta::new);
+    public Page<DadosListagemConsulta> listarConsultasFuncionario(Long idFuncionario,
+                                                                  Long idServico, Pageable paginacao) {
+        var specs = ConsultaSpecification.funcionarioId(idFuncionario).and(ConsultaSpecification.status(StatusConsulta.PENDENTE));
+        if (idServico != null) {
+            specs = specs.and(ConsultaSpecification.servicoId(idServico));
+        }
+        return consultaRepository.findAll(specs, paginacao).map(DadosListagemConsulta::new);
     }
 
-    public Page<DadosListagemConsulta> listarOldConsultasFuncionario(Long idFuncionario, Pageable paginacao) {
-        return consultaRepository.findByFuncionarioIdAndStatusNot(paginacao, idFuncionario, StatusConsulta.PENDENTE).map(DadosListagemConsulta::new);
+    public Page<DadosListagemConsulta> listarOldConsultasFuncionario(Long idFuncionario, StatusConsulta status, Long idServico, Pageable paginacao) {
+        var specs = ConsultaSpecification.funcionarioId(idFuncionario);
+        if (idServico != null) {
+            specs = specs.and(ConsultaSpecification.servicoId(idServico));
+        }
+        if (status != null) {
+            specs = specs.and(ConsultaSpecification.status(status));
+        } else {
+            specs = specs.and(ConsultaSpecification.statusNot(StatusConsulta.PENDENTE));
+        }
+        return consultaRepository.findAll(specs, paginacao).map(DadosListagemConsulta::new);
     }
 }

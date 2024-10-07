@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.Arrays;
 import java.util.List;
 
 public interface ServicoRepository extends JpaRepository<Servico, Long> {
@@ -20,4 +21,5 @@ public interface ServicoRepository extends JpaRepository<Servico, Long> {
             """)
     boolean findAtivoById(Long id);
 
+    List<Servico> findAllByAtivoTrueAndFuncionariosId(Long idFuncionario);
 }

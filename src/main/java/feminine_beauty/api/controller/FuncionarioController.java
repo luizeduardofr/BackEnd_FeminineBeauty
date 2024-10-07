@@ -53,10 +53,10 @@ public class FuncionarioController {
         return ResponseEntity.ok(detalhamentoFuncionario);
     }
 
-    @GetMapping("/servicos/{idServico}")
-    public ResponseEntity<List<DadosListagemFuncionario>> listarServicosDoFuncionario(@PathVariable Long idServico) {
-        var servicos = service.listarServicosDoFuncionario(idServico);
-        return ResponseEntity.ok(servicos);
+    @GetMapping("/servico/{idServico}")
+    public ResponseEntity<List<DadosListagemFuncionario>> listarFuncionariosDoServico(@PathVariable Long idServico) {
+        var funcionarios = service.listarFuncionariosDoServico(idServico);
+        return ResponseEntity.ok(funcionarios);
     }
 }
 

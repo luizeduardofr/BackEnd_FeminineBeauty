@@ -16,6 +16,7 @@ import java.util.List;
 @Entity(name = "Funcionario")
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")

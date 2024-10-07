@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @Entity(name = "Consulta")
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")

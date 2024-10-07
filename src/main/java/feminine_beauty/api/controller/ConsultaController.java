@@ -3,6 +3,7 @@ package feminine_beauty.api.controller;
 import feminine_beauty.api.dtos.consulta.DadosAgendamentoConsulta;
 import feminine_beauty.api.dtos.consulta.DadosCancelamentoConsulta;
 import feminine_beauty.api.dtos.consulta.DadosListagemConsulta;
+import feminine_beauty.api.dtos.consulta.StatusConsulta;
 import feminine_beauty.api.services.ConsultaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,33 +25,42 @@ public class ConsultaController {
     @GetMapping("/cliente/{idCliente}")
     public ResponseEntity<Page<DadosListagemConsulta>> listarConsultasCliente(
             @PathVariable Long idCliente,
+            @RequestParam(required = false) Long idServico,
+            @RequestParam(required = false) Long idFuncionario,
             @PageableDefault(size = 10, sort = {"data"}, direction = Sort.Direction.ASC) Pageable paginacao
     ) {
-        return ResponseEntity.ok(consultaService.listarConsultasCliente(idCliente, paginacao));
+        return ResponseEntity.ok(consultaService.listarConsultasCliente(idCliente, idServico, idFuncionario, paginacao));
     }
 
     @GetMapping("/old/cliente/{idCliente}")
     public ResponseEntity<Page<DadosListagemConsulta>> listarOldConsultasCliente(
             @PathVariable Long idCliente,
+            @RequestParam(required = false) Long idServico,
+            @RequestParam(required = false) Long idFuncionario,
+            @RequestParam(required = false) StatusConsulta status,
             @PageableDefault(size = 10, sort = {"data"}, direction = Sort.Direction.DESC) Pageable paginacao
     ) {
-        return ResponseEntity.ok(consultaService.listarOldConsultasCliente(idCliente, paginacao));
+        return ResponseEntity.ok(consultaService.listarOldConsultasCliente(idCliente, idServico, idFuncionario, status, paginacao));
     }
 
     @GetMapping("/funcionario/{idFuncionario}")
     public ResponseEntity<Page<DadosListagemConsulta>> listarConsultasFuncionario(
             @PathVariable Long idFuncionario,
+            @RequestParam(required = false) Long idServico,
             @PageableDefault(size = 10, sort = {"data"}, direction = Sort.Direction.ASC) Pageable paginacao
     ) {
-        return ResponseEntity.ok(consultaService.listarConsultasFuncionario(idFuncionario, paginacao));
+        return ResponseEntity.ok(consultaService.listarConsultasFuncionario(idFuncionario, idServico, paginacao));
     }
 
     @GetMapping("/old/funcionario/{idFuncionario}")
     public ResponseEntity<Page<DadosListagemConsulta>> listarOldConsultasFuncionario(
             @PathVariable Long idFuncionario,
+            @RequestParam(required = false) StatusConsulta status,
+            @RequestParam(required = false) Long idServico,
             @PageableDefault(size = 10, sort = {"data"}, direction = Sort.Direction.DESC) Pageable paginacao
     ) {
-        return ResponseEntity.ok(consultaService.listarOldConsultasFuncionario(idFuncionario, paginacao));
+        return ResponseEntity.ok(consultaService.listarOldConsultasFuncionario(idFuncionario, status, idServico,
+                paginacao));
     }
 
     @PostMapping

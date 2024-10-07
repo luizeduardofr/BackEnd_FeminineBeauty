@@ -1,6 +1,7 @@
 package feminine_beauty.api.services;
 
 import feminine_beauty.api.domain.servico.Servico;
+import feminine_beauty.api.dtos.funcionario.DadosListagemFuncionario;
 import feminine_beauty.api.dtos.servico.DadosAtualizacaoServico;
 import feminine_beauty.api.dtos.servico.DadosCadastroServico;
 import feminine_beauty.api.dtos.servico.DadosListagemServico;
@@ -52,6 +53,9 @@ public class ServicoService {
         return new DadosListagemServico(servico);
     }
 
+    public List<DadosListagemServico> listarServicosDoFuncionario(Long idFuncionario) {
+        return repository.findAllByAtivoTrueAndFuncionariosId(idFuncionario).stream().map(DadosListagemServico::new).toList();
+    }
 }
 
 
