@@ -16,6 +16,7 @@ import feminine_beauty.api.repositories.ServicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -128,6 +129,33 @@ public class ConsultaService {
 
     public Page<DadosListagemConsulta> listarOldConsultasFuncionario(Long idFuncionario, StatusConsulta status, Long idServico, Pageable paginacao) {
         var specs = ConsultaSpecification.funcionarioId(idFuncionario);
+        if (idServico != null) {
+            specs = specs.and(ConsultaSpecification.servicoId(idServico));
+        }
+        if (status != null) {
+            specs = specs.and(ConsultaSpecification.status(status));
+        } else {
+            specs = specs.and(ConsultaSpecification.statusNot(StatusConsulta.PENDENTE));
+        }
+        return consultaRepository.findAll(specs, paginacao).map(DadosListagemConsulta::new);
+    }
+
+    public Page<DadosListagemConsulta> listarConsultasAdmin(Long idFuncionario, Long idServico, Pageable paginacao) {
+        var specs = ConsultaSpecification.status(StatusConsulta.PENDENTE);
+        if (idFuncionario != null) {
+            specs = specs.and(ConsultaSpecification.funcionarioId(idFuncionario));
+        }
+        if (idServico != null) {
+            specs = specs.and(ConsultaSpecification.servicoId(idServico));
+        }
+        return consultaRepository.findAll(specs, paginacao).map(DadosListagemConsulta::new);
+    }
+
+    public Page<DadosListagemConsulta> listarOldConsultasAdmin(Long idFuncionario, StatusConsulta status, Long idServico, Pageable paginacao) {
+        Specification<Consulta> specs = Specification.where(null);
+        if (idFuncionario != null) {
+            specs = specs.and(ConsultaSpecification.funcionarioId(idFuncionario));
+        }
         if (idServico != null) {
             specs = specs.and(ConsultaSpecification.servicoId(idServico));
         }

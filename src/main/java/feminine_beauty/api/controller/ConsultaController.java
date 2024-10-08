@@ -63,6 +63,26 @@ public class ConsultaController {
                 paginacao));
     }
 
+    @GetMapping("/admin")
+    public ResponseEntity<Page<DadosListagemConsulta>> listarConsultasAdmin(
+            @RequestParam(required = false) Long idFuncionario,
+            @RequestParam(required = false) Long idServico,
+            @PageableDefault(size = 10, sort = {"data"}, direction = Sort.Direction.ASC) Pageable paginacao
+    ) {
+        return ResponseEntity.ok(consultaService.listarConsultasAdmin(idFuncionario, idServico, paginacao));
+    }
+
+    @GetMapping("/old/admin")
+    public ResponseEntity<Page<DadosListagemConsulta>> listarOldConsultasAdmin(
+            @RequestParam(required = false) Long idFuncionario,
+            @RequestParam(required = false) StatusConsulta status,
+            @RequestParam(required = false) Long idServico,
+            @PageableDefault(size = 10, sort = {"data"}, direction = Sort.Direction.DESC) Pageable paginacao
+    ) {
+        return ResponseEntity.ok(consultaService.listarOldConsultasAdmin(idFuncionario, status, idServico,
+                paginacao));
+    }
+
     @PostMapping
     @Transactional
     public ResponseEntity<DadosListagemConsulta> agendar(@RequestBody @Valid DadosAgendamentoConsulta dados) {
