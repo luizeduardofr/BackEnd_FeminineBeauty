@@ -17,7 +17,7 @@ public record DadosAgendamentoConsulta(
         @NotBlank(message = "Tipo de pagamento é obrigatório")
         String tipoPagamento,
 
-        @NotNull(message = "Cliente é obrigatório")
+        @NotNull(message = "Funcionário é obrigatório")
         DadosListagemFuncionario funcionario,
 
         @NotNull(message = "Cliente é obrigatório")
