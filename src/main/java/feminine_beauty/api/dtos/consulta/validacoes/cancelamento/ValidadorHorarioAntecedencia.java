@@ -22,7 +22,7 @@ public class ValidadorHorarioAntecedencia implements ValidadorCancelamentoDeCons
         var requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         if (requestAttributes != null) {
             var role = requestAttributes.getRequest().getAttribute("role");
-            if (role != null && !role.equals("USER")) return;
+            if (role != null && !role.equals("usuario")) return;
         }
 
         var consulta = repository.getReferenceById(dados.idConsulta());
