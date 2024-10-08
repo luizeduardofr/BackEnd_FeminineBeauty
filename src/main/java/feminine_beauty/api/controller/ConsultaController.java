@@ -15,6 +15,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @RestController
 @RequestMapping("consultas")
 public class ConsultaController {
@@ -81,6 +84,15 @@ public class ConsultaController {
     ) {
         return ResponseEntity.ok(consultaService.listarOldConsultasAdmin(idFuncionario, status, idServico,
                 paginacao));
+    }
+
+    @GetMapping("/faturamento")
+    public ResponseEntity<List<DadosListagemConsulta>> obterFaturamento(
+            @RequestParam Long idFuncionario,
+            @RequestParam LocalDate dataInicio,
+            @RequestParam LocalDate dataFim
+    ) {
+        return ResponseEntity.ok(consultaService.buscarFaturamento(idFuncionario, dataInicio, dataFim));
     }
 
     @PostMapping

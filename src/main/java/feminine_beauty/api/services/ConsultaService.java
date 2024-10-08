@@ -19,7 +19,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ConsultaService {
@@ -165,5 +169,12 @@ public class ConsultaService {
             specs = specs.and(ConsultaSpecification.statusNot(StatusConsulta.PENDENTE));
         }
         return consultaRepository.findAll(specs, paginacao).map(DadosListagemConsulta::new);
+    }
+
+    public List<DadosListagemConsulta> buscarFaturamento(Long idFuncionario, LocalDate dataInicio, LocalDate dataFim) {
+        var inicio = dataInicio.atStartOfDay(ZoneId.systemDefault());
+        var fim = dataFim.atStartOfDay(ZoneId.systemDefault()).plusDays(1).minusNanos(1);
+        var specs = ConsultaSpecification.funcionarioId(idFuncionario).and(ConsultaSpecification.dataBetween(inicio, fim));
+        return consultaRepository.findAll(specs).stream().map(DadosListagemConsulta::new).toList();
     }
 }
