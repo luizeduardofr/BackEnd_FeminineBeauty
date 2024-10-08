@@ -5,6 +5,8 @@ import feminine_beauty.api.dtos.consulta.DadosCancelamentoConsulta;
 import feminine_beauty.api.repositories.ConsultaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -17,6 +19,12 @@ public class ValidadorHorarioAntecedencia implements ValidadorCancelamentoDeCons
 
     @Override
     public void validar(DadosCancelamentoConsulta dados) {
+        var requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        if (requestAttributes != null) {
+            var role = requestAttributes.getRequest().getAttribute("role");
+            if (role != null && !role.equals("USER")) return;
+        }
+
         var consulta = repository.getReferenceById(dados.idConsulta());
         var agora = LocalDateTime.now();
         var diferencaEmHoras = Duration.between(agora, consulta.getData()).toHours();
