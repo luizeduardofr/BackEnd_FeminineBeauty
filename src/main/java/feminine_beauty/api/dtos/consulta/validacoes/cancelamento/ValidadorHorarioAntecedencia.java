@@ -10,6 +10,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 
 @Component("ValidadorHorarioAntecedenciaCancelamento")
 public class ValidadorHorarioAntecedencia implements ValidadorCancelamentoDeConsulta {
@@ -26,8 +28,10 @@ public class ValidadorHorarioAntecedencia implements ValidadorCancelamentoDeCons
         }
 
         var consulta = repository.getReferenceById(dados.idConsulta());
+        var dataConsulta = consulta.getData().atZone(ZoneOffset.UTC);
+        var dataTratada = dataConsulta.withZoneSameInstant(ZoneId.of("America/Sao_Paulo"));
         var agora = LocalDateTime.now();
-        var diferencaEmHoras = Duration.between(agora, consulta.getData()).toHours();
+        var diferencaEmHoras = Duration.between(agora, dataTratada).toHours();
 
         if (diferencaEmHoras < 2) {
             throw new ValidacaoException("Consulta somente pode ser cancelada com antecedência mínima de 2h!");
