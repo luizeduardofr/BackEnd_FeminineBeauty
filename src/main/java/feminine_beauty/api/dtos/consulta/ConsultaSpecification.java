@@ -1,11 +1,8 @@
 package feminine_beauty.api.dtos.consulta;
 
 import feminine_beauty.api.domain.consulta.Consulta;
-import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.web.servlet.tags.EditorAwareTag;
 
-import java.time.LocalDate;
 import java.time.ZonedDateTime;
 
 public class ConsultaSpecification {
@@ -37,5 +34,4 @@ public class ConsultaSpecification {
             return criteriaBuilder.and(inicio, fim);
         };
     }
-
 }

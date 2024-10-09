@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.DayOfWeek;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 
 @Component()
 public class ValidadorFuncionarioComOutraConsultaNoMesmoHorario implements ValidadorAgendamentoDeConsulta{
@@ -15,6 +17,7 @@ public class ValidadorFuncionarioComOutraConsultaNoMesmoHorario implements Valid
     private ConsultaRepository repository;
 
     public void validar(DadosAgendamentoConsulta dados) {
+
         var funcionarioPossuiOutraConsultaNoMesmoHorario =
                 repository.countByFuncionarioIdAndDataWithDuracao(dados.funcionario().id(), dados.data(),
                         dados.servico().duracao());
